@@ -12,17 +12,18 @@ import EmptyState from '../components/EmptyState'
 // ── KPI Card ─────────────────────────────────────────────────────────────────
 function KpiCard({ label, value, icon, color, loading }) {
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm hover:shadow-md transition-all group animate-in fade-in zoom-in duration-500">
-      <div className="flex items-center gap-5">
-        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${color} group-hover:scale-110 transition-transform`}>
+    <div className="glass-card rounded-4xl p-8 group hover:-translate-y-2 transition-all duration-500 overflow-hidden relative animate-in fade-in zoom-in">
+      <div className={`absolute -top-10 -right-10 w-32 h-32 ${color.split(' ')[0]} opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform`} />
+      <div className="flex items-center gap-6 relative z-10">
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${color} shadow-lg group-hover:scale-110 transition-transform`}>
           {icon}
         </div>
         <div>
-          <p className="text-xs text-slate-400 font-black uppercase tracking-widest mb-1">{label}</p>
           {loading
-            ? <div className="h-8 w-16 bg-slate-50 rounded-xl animate-pulse" />
-            : <p className="text-3xl font-black text-slate-800 tracking-tighter">{value ?? 0}</p>
+            ? <div className="h-10 w-24 bg-slate-50 rounded-xl animate-pulse" />
+            : <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{value ?? 0}</p>
           }
+          <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-2">{label}</p>
         </div>
       </div>
     </div>
@@ -125,21 +126,25 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="page-shell space-y-8 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-black text-slate-800 tracking-tighter">System Overview</h1>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Real-time compliance intelligence</p>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-100">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-primary-500 animate-ping" />
+            <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">Real-time Node Active</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Command Center</h1>
+          <p className="text-sm sm:text-base font-bold text-slate-400">Unified view of your regulatory performance and risk vectoring.</p>
         </div>
-        <div className="flex items-center gap-3">
-           <button onClick={() => navigate('/ai')} className="btn-secondary rounded-2xl px-6 py-3 font-bold border-violet-100 text-violet-600 bg-violet-50 hover:bg-violet-100 transition-all">
-             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-             AI Insight
+        <div className="flex flex-wrap items-center gap-4">
+           <button onClick={() => navigate('/ai')} className="flex-1 sm:flex-none p-4 rounded-2xl bg-white border border-slate-100 text-primary-600 hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+             <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+             <span className="text-xs font-black uppercase tracking-widest">AI Agent</span>
            </button>
-           <button onClick={() => navigate('/compliance/new')} className="btn-primary rounded-2xl px-6 py-3 font-bold shadow-lg shadow-primary-100 transition-all hover:scale-105 active:scale-95">
-             + New Entry
+           <button onClick={() => navigate('/compliance/new')} className="flex-1 sm:flex-none btn-vibrant whitespace-nowrap">
+             + New Document
            </button>
         </div>
       </div>
@@ -155,15 +160,15 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         {/* Status Distribution */}
-        <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm">
-          <div className="flex items-center justify-between mb-10">
+        <div className="lg:col-span-2 glass-card rounded-[3rem] p-10 flex flex-col h-[500px]">
+          <div className="flex items-center justify-between mb-12">
             <div>
-              <h2 className="text-2xl font-black text-slate-800 tracking-tight">Status Distribution</h2>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Status Distribution</h2>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Categorical record breakdown</p>
             </div>
             <div className="flex gap-2">
                {['COMPLIANT', 'PENDING', 'NON_COMPLIANT'].map(s => (
-                 <div key={s} className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-100">
+                 <div key={s} className="flex items-center gap-2 px-4 py-2 bg-slate-50/50 rounded-xl border border-slate-100">
                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: BAR_COLORS[s] }} />
                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{chartLabels[s] || s}</span>
                  </div>
@@ -171,30 +176,30 @@ export default function Dashboard() {
             </div>
           </div>
           
-          <div className="h-[300px] w-full">
+          <div className="flex-1 w-full min-h-0"> {/* Fixed: min-h-0 for ResponsiveContainer */}
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} barSize={48} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="8 8" stroke="#f8fafc" vertical={false} />
+              <BarChart data={chartData} barSize={64} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="12 12" stroke="#f1f5f9" vertical={false} />
                 <XAxis
                   dataKey="name"
                   tickFormatter={n => chartLabels[n] ?? n}
-                  tick={{ fontSize: 10, fill: '#cbd5e1', fontWeight: 900 }}
+                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 900 }}
                   axisLine={false}
                   tickLine={false}
                   dy={15}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fontSize: 10, fill: '#cbd5e1', fontWeight: 900 }}
+                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 900 }}
                   axisLine={false}
                   tickLine={false}
                 />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc', radius: 16 }} />
-                <Bar dataKey="count" radius={[16, 16, 4, 4]} animationDuration={1500} animationBegin={200}>
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc', radius: 24 }} />
+                <Bar dataKey="count" radius={[24, 24, 8, 8]} animationDuration={2000}>
                   {chartData.map((entry) => (
                     <Cell
                       key={entry.name}
-                      fill={BAR_COLORS[entry.name] ?? '#8b5cf6'}
+                      fill={BAR_COLORS[entry.name] ?? '#818cf8'}
                       className="transition-all hover:opacity-80"
                     />
                   ))}
@@ -205,26 +210,26 @@ export default function Dashboard() {
         </div>
 
         {/* Progress Card */}
-        <div className="bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm flex flex-col justify-between">
+        <div className="glass-card rounded-[3rem] p-10 shadow-sm flex flex-col justify-between h-[500px]">
           <div>
-            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Compliance Health</h2>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Compliance Health</h2>
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Relative performance index</p>
           </div>
 
-          <div className="space-y-8 my-10">
+          <div className="space-y-10 my-10">
             {[
-              { label: 'Operational Compliance', value: stats?.compliant ?? 0,    total: stats?.total ?? 1, color: 'from-emerald-400 to-emerald-600', shadow: 'shadow-emerald-100' },
-              { label: 'Tasks in Backlog',      value: stats?.pending ?? 0,      total: stats?.total ?? 1, color: 'from-amber-300 to-amber-500', shadow: 'shadow-amber-100'   },
-              { label: 'Critical Risk Items',   value: stats?.nonCompliant ?? 0, total: stats?.total ?? 1, color: 'from-red-400 to-rose-600', shadow: 'shadow-rose-100'     },
+              { label: 'Audit Accuracy', value: stats?.compliant ?? 0,    total: stats?.total ?? 1, color: 'from-emerald-400 to-emerald-600', shadow: 'shadow-emerald-100' },
+              { label: 'Backlog Load',      value: stats?.pending ?? 0,      total: stats?.total ?? 1, color: 'from-amber-400 to-amber-600', shadow: 'shadow-amber-100'   },
+              { label: 'Critical Risk',   value: stats?.nonCompliant ?? 0, total: stats?.total ?? 1, color: 'from-rose-500 to-rose-700', shadow: 'shadow-rose-100'     },
             ].map(({ label, value, total, color, shadow }) => {
               const pct = total > 0 ? Math.round((value / total) * 100) : 0
               return (
                 <div key={label} className="group">
                   <div className="flex justify-between items-end mb-3">
                     <span className="text-xs font-black text-slate-700 uppercase tracking-widest">{label}</span>
-                    <span className="text-xl font-black text-slate-900 leading-none">{pct}%</span>
+                    <span className="text-2xl font-black text-slate-900 leading-none">{pct}%</span>
                   </div>
-                  <div className="h-4 bg-slate-50 rounded-2xl p-1 border border-slate-100">
+                  <div className="h-5 bg-slate-50 rounded-2xl p-1 border border-slate-100">
                     <div
                       className={`h-full rounded-xl bg-gradient-to-r transition-all duration-1000 ease-out ${color} ${shadow} shadow-lg`}
                       style={{ width: `${pct}%` }}
@@ -237,7 +242,7 @@ export default function Dashboard() {
 
           <button
             onClick={() => navigate('/compliance')}
-            className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
+            className="btn-vibrant w-full"
           >
             Review Audit Logs
           </button>
@@ -259,7 +264,38 @@ export default function Dashboard() {
           </button>
         </div>
         
-        <div className="overflow-x-auto">
+        <div className="block md:hidden divide-y divide-slate-50">
+          {recent.map((rec, idx) => {
+            const overdue = isOverdue(rec.dueDate) && rec.status !== 'COMPLIANT'
+            return (
+              <div 
+                key={rec.id} 
+                onClick={() => navigate(`/compliance/${rec.id}`)}
+                className="p-6 space-y-4 active:bg-slate-50"
+              >
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 font-mono text-[10px]">#{rec.id}</div>
+                    <p className="font-black text-slate-800 tracking-tight leading-tight">{rec.title}</p>
+                  </div>
+                  <StatusBadge status={rec.status} size="sm" />
+                </div>
+                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <div className="flex flex-col gap-1">
+                    <span>Deadline</span>
+                    <span className={overdue ? 'text-red-500' : 'text-slate-600'}>{formatDate(rec.dueDate)}</span>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span>Priority</span>
+                    <span className={rec.priority === 'HIGH' ? 'text-red-500' : 'text-slate-600'}>{rec.priority}</span>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="hidden md:block overflow-x-auto">
           {recent.length === 0 && !recLoading ? (
             <div className="py-20">
               <EmptyState 

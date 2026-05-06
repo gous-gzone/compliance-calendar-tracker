@@ -177,13 +177,14 @@ export default function ComplianceList() {
     const active = sortBy === col
     return (
       <th onClick={() => handleSort(col)}
-        className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider cursor-pointer select-none hover:bg-slate-100 hover:text-slate-800 transition-colors whitespace-nowrap">
-        <span className={`flex items-center gap-1 ${active ? 'text-primary-600' : ''}`}>
+        className="px-6 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer select-none hover:bg-slate-50 hover:text-primary-600 transition-all border-b border-slate-100 relative group">
+        <span className={`flex items-center gap-2 ${active ? 'text-primary-600' : ''}`}>
           {label}
-          <span className="text-[10px]">
-            {active ? (sortDir === 'asc' ? '↑' : '↓') : <span className="text-slate-300">↕</span>}
+          <span className={`transition-transform duration-300 ${active ? 'scale-110' : 'opacity-20 group-hover:opacity-100'}`}>
+            {active ? (sortDir === 'asc' ? '↑' : '↓') : <span className="text-[8px]">↕</span>}
           </span>
         </span>
+        {active && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 animate-in slide-in-from-left duration-300" />}
       </th>
     )
   }
@@ -208,41 +209,37 @@ export default function ComplianceList() {
       </div>
     )
   }
-
   return (
-    <div className="page-shell space-y-4">
+    <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
       {/* ── Header ── */}
-      <div className="page-header">
-        <div>
-          <h1 className="page-title">Compliance Records</h1>
-          {!loading && !error && (
-            <p className="page-subtitle">
-              {totalElements} record{totalElements !== 1 ? 's' : ''}
-              {hasFilters && <span className="ml-1 text-primary-500 font-medium">(filtered)</span>}
-            </p>
-          )}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-100">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-[9px] font-black uppercase tracking-widest">Database Node 01</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Audit Ledger</h1>
+          <p className="text-sm sm:text-base font-bold text-slate-400">
+            {totalElements} immutable records discovered in the system cluster.
+          </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-4">
           <button
             onClick={handleExport}
             disabled={exporting}
-            className="btn-secondary"
+            className="flex-1 sm:flex-none p-4 rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-primary-600 hover:border-primary-100 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2"
           >
             {exporting ? (
-              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-              </svg>
+              <div className="w-4 h-4 animate-spin border-2 border-primary-600 border-t-transparent rounded-full" />
             ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
             )}
-            {exporting ? 'Exporting…' : 'Export CSV'}
+            <span className="text-[10px] font-black uppercase tracking-widest">{exporting ? 'Exporting…' : 'Export CSV'}</span>
           </button>
-          <button onClick={() => navigate('/compliance/new')} className="btn-primary">
+          <button onClick={() => navigate('/compliance/new')} className="flex-1 sm:flex-none btn-vibrant whitespace-nowrap">
             + New Record
           </button>
         </div>
@@ -301,7 +298,7 @@ export default function ComplianceList() {
           </select>
 
           {/* Date range */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
             <input
               type="date"
               value={dateFrom}
@@ -309,7 +306,7 @@ export default function ComplianceList() {
               className="form-input w-full lg:w-36 py-2.5 mt-0 text-xs"
               title="Due date from"
             />
-            <span className="text-slate-400 text-xs flex-shrink-0">to</span>
+            <span className="hidden sm:inline text-slate-400 text-xs flex-shrink-0">to</span>
             <input
               type="date"
               value={dateTo}
@@ -334,7 +331,51 @@ export default function ComplianceList() {
 
       {/* ── Table ── */}
       <div className="table-card">
-        <div className="overflow-x-auto">
+        <div className="block lg:hidden divide-y divide-slate-100">
+          {records.map((rec, idx) => {
+            const overdue = isOverdue(rec.dueDate) && rec.status !== 'COMPLIANT'
+            return (
+              <div 
+                key={rec.id} 
+                onClick={() => navigate(`/compliance/${rec.id}`)}
+                className="p-6 space-y-4 active:bg-slate-50 transition-colors animate-in fade-in"
+              >
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono text-slate-400">#{rec.id}</span>
+                      <StatusBadge status={rec.status} size="sm" />
+                    </div>
+                    <p className="text-base font-black text-slate-800 tracking-tight truncate">{rec.title}</p>
+                  </div>
+                  <PriorityBadge priority={rec.priority} />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Deadline</span>
+                    <span className={`text-xs font-bold ${overdue ? 'text-red-500' : 'text-slate-600'}`}>{formatDate(rec.dueDate)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); navigate(`/compliance/${rec.id}/edit`) }}
+                      className="p-2 rounded-xl bg-slate-50 text-slate-500 border border-slate-100"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                    </button>
+                    <button
+                      onClick={(e) => handleDelete(e, rec.id, rec.title)}
+                      className="p-2 rounded-xl bg-red-50 text-red-500 border border-red-100"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="hidden lg:block overflow-x-auto">
           {error ? (
             <div className="p-8">
               <div className="bg-red-50 border border-red-100 rounded-2xl p-8 text-center">

@@ -4,7 +4,6 @@ import com.example.tool.dto.ComplianceRequest;
 import com.example.tool.entity.Compliance;
 import com.example.tool.exception.ComplianceNotFoundException;
 import com.example.tool.repository.ComplianceRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,10 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class ComplianceService {
 
     private final ComplianceRepository complianceRepository;
+
+    public ComplianceService(ComplianceRepository complianceRepository) {
+        this.complianceRepository = complianceRepository;
+    }
 
     public List<Compliance> getAll() {
         return complianceRepository.findAll();
@@ -31,6 +33,7 @@ public class ComplianceService {
         compliance.setTitle(request.getTitle());
         compliance.setDescription(request.getDescription());
         compliance.setStatus(request.getStatus());
+        compliance.setPriority(request.getPriority());
         compliance.setDueDate(request.getDueDate());
         return complianceRepository.save(compliance);
     }
@@ -40,6 +43,7 @@ public class ComplianceService {
         existing.setTitle(request.getTitle());
         existing.setDescription(request.getDescription());
         existing.setStatus(request.getStatus());
+        existing.setPriority(request.getPriority());
         existing.setDueDate(request.getDueDate());
         return complianceRepository.save(existing);
     }

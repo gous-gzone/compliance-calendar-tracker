@@ -60,16 +60,20 @@ export default function TaskList() {
   }
 
   return (
-    <div className="page-shell space-y-8 max-w-[1400px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-100 pb-8">
-        <div>
-          <h1 className="text-4xl font-black text-slate-800 tracking-tighter">Compliance Ledger</h1>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Audit log & task management system</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-10 border-b border-slate-100">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-accent-purple animate-ping" />
+            <span className="text-[10px] font-black text-accent-purple uppercase tracking-widest">Active Queue Management</span>
+          </div>
+          <h1 className="text-5xl font-black text-slate-900 tracking-tighter">Action Items</h1>
+          <p className="text-base font-bold text-slate-400">Manage and track your immediate compliance responsibilities.</p>
         </div>
-        <button onClick={() => navigate('/compliance/new')} className="btn-primary rounded-2xl px-8 py-4 font-black uppercase tracking-widest shadow-xl shadow-primary-100 hover:scale-105 active:scale-95 transition-all">
-          + Add New Entry
+        <button onClick={() => navigate('/compliance/new')} className="btn-vibrant">
+          + Create Task
         </button>
       </div>
 
@@ -77,29 +81,30 @@ export default function TaskList() {
       {loading ? (
         <LoadingSkeleton type="grid" />
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {kpis.map(({ label, value, color, icon }) => (
-            <div key={label} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm hover:shadow-md transition-all group">
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${color} group-hover:scale-110 transition-transform`}>
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icon} /></svg>
+            <div key={label} className="glass-card rounded-[2.5rem] p-10 group hover:-translate-y-2 transition-all duration-500 overflow-hidden relative">
+              <div className={`absolute -top-10 -right-10 w-32 h-32 ${color.split(' ')[0]} opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform`} />
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${color} shadow-lg group-hover:scale-110 transition-transform`}>
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={icon} /></svg>
               </div>
-              <p className="text-4xl font-black text-slate-800 tracking-tighter mb-1">{value}</p>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
+              <p className="text-5xl font-black text-slate-900 tracking-tighter leading-none">{value}</p>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">{label}</p>
             </div>
           ))}
         </div>
       )}
 
       {/* Table Container */}
-      <div className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
-        <div className="px-10 py-8 border-b border-slate-50 flex items-center justify-between">
+      <div className="glass-card rounded-[3rem] overflow-hidden">
+        <div className="px-10 py-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
           <div>
-            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Active Workload</h2>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Status indexed documentation</p>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Active Workload</h2>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Status indexed documentation</p>
           </div>
           {!loading && tasks.length > 0 && (
-            <span className="px-4 py-2 bg-slate-50 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest border border-slate-100">
-              {tasks.length} Total Records
+            <span className="text-[10px] font-black text-primary-600 bg-primary-50 px-4 py-2 rounded-full uppercase tracking-widest">
+              {tasks.length} Items Found
             </span>
           )}
         </div>

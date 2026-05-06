@@ -1,0 +1,4 @@
+ALTER TABLE users RENAME COLUMN username TO email;
+ALTER TABLE users ADD COLUMN name VARCHAR(100);
+UPDATE users SET name = 'Unknown' WHERE name IS NULL;
+ALTER TABLE users ALTER COLUMN name SET NOT NULL;

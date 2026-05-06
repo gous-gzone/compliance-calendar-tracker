@@ -18,11 +18,11 @@ import AIPanelPage from './pages/AIPanelPage'
 
 function AppShell({ children }) {
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-50 via-white to-primary-50/40">
       <Sidebar />
-      <div className="flex-1 lg:pl-60 flex flex-col min-h-screen">
+      <div className="flex-1 lg:pl-72 flex flex-col min-h-screen relative w-full overflow-x-hidden">
         <Navbar />
-        <main className="flex-1 pt-16">
+        <main className="flex-1 px-4 sm:px-6 lg:px-10 py-6 sm:py-10 w-full max-w-full animate-in fade-in duration-1000">
           <ErrorBoundary>
             {children}
           </ErrorBoundary>

@@ -147,25 +147,28 @@ export default function Analytics() {
   }
 
   return (
-    <div className="page-shell space-y-10 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
       
       {/* Header & Period Selector */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-100 pb-8">
-        <div>
-          <h1 className="text-4xl font-black text-slate-800 tracking-tighter">Business Intelligence</h1>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Deep-dive compliance performance metrics</p>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-slate-100 pb-10">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="px-3 py-1 bg-accent-purple/10 text-accent-purple rounded-full text-[9px] font-black uppercase tracking-widest">Intelligence Node</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Performance Hub</h1>
+          <p className="text-sm sm:text-base font-bold text-slate-400">Granular analysis of regulatory lifecycle and response metrics.</p>
         </div>
         
-        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-[2rem] border border-slate-200">
+        <div className="flex items-center gap-1 bg-slate-100 p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl border border-slate-200 overflow-x-auto no-scrollbar">
           {[
-            { id: '7days', label: 'Last 7 Days' },
-            { id: '30days', label: 'Last 30 Days' },
-            { id: 'all', label: 'All Records' }
+            { id: '7days', label: '7D' },
+            { id: '30days', label: '30D' },
+            { id: 'all', label: '∞' }
           ].map(p => (
             <button 
               key={p.id}
               onClick={() => setPeriod(p.id)}
-              className={`px-6 py-3 text-[10px] font-black uppercase tracking-widest rounded-2xl transition-all ${period === p.id ? 'bg-white text-slate-900 shadow-xl shadow-slate-200 scale-105' : 'text-slate-500 hover:text-slate-700'}`}
+              className={`px-6 sm:px-8 py-2.5 sm:py-3 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-xl sm:rounded-2xl transition-all whitespace-nowrap ${period === p.id ? 'bg-white text-primary-600 shadow-xl shadow-slate-200 scale-105' : 'text-slate-400 hover:text-slate-600'}`}
             >
               {p.label}
             </button>
@@ -180,20 +183,20 @@ export default function Analytics() {
       )}
 
       {/* Summary Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
         {[
-          { label: 'Total Audits',    value: summary.total,       color: 'text-indigo-600', bg: 'bg-indigo-50', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+          { label: 'Total Audits',    value: summary.total,       color: 'text-primary-600', bg: 'bg-primary-50', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
           { label: 'Compliant',        value: summary.compliant,   color: 'text-emerald-600', bg: 'bg-emerald-50', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
-          { label: 'Failing Items',    value: summary.nonCompliant, color: 'text-red-600', bg: 'bg-red-50', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
-          { label: 'Health Score',  value: `${summary.complianceRate}%`, color: 'text-violet-600',  bg: 'bg-violet-50', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+          { label: 'Failing Items',    value: summary.nonCompliant, color: 'text-rose-600', bg: 'bg-rose-50', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
+          { label: 'Health Score',  value: `${summary.complianceRate}%`, color: 'text-accent-purple',  bg: 'bg-purple-50', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
         ].map(({ label, value, color, bg, icon }) => (
-          <div key={label} className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm hover:shadow-xl transition-all group overflow-hidden relative">
-            <div className={`absolute top-0 right-0 w-24 h-24 ${bg} opacity-20 rounded-bl-full transition-transform group-hover:scale-150`} />
-            <div className={`w-12 h-12 rounded-2xl ${bg} ${color} flex items-center justify-center mb-6`}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icon} /></svg>
+          <div key={label} className="glass-card rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-10 group hover:-translate-y-2 transition-all duration-500 overflow-hidden relative">
+            <div className={`absolute -top-10 -right-10 w-32 h-32 ${bg} opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform`} />
+            <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl ${bg} ${color} flex items-center justify-center mb-4 sm:mb-8 shadow-lg group-hover:scale-110 transition-transform`}>
+              <svg className="w-5 h-5 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={icon} /></svg>
             </div>
-            <p className={`text-4xl font-black tracking-tighter ${color}`}>{value ?? 0}</p>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2">{label}</p>
+            <p className={`text-3xl sm:text-5xl font-black tracking-tighter leading-none ${color}`}>{value ?? 0}</p>
+            <p className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2 sm:mt-4">{label}</p>
           </div>
         ))}
       </div>
@@ -202,13 +205,13 @@ export default function Analytics() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Trend Over Time (Area Chart) */}
-        <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm flex flex-col">
-          <div className="mb-10">
-            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Timeline Analytics</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Daily registration & event volume</p>
+        <div className="lg:col-span-2 glass-card rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 flex flex-col h-[400px] sm:h-[550px]">
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Timeline Analysis</h2>
+            <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Daily registration & event volume metrics</p>
           </div>
           
-          <div className="flex-1 min-h-[350px]">
+          <div className="flex-1 min-h-0 w-full"> {/* Fixed: min-h-0 for ResponsiveContainer */}
             {trendData.length === 0 ? (
               <EmptyState title="No trend data" message="We need more historical data to generate this timeline visualization." />
             ) : (
@@ -253,13 +256,13 @@ export default function Analytics() {
         </div>
 
         {/* Status Breakdown (Pie Chart) */}
-        <div className="bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm flex flex-col">
-          <div className="mb-10">
-            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Status Balance</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Current state distribution</p>
+        <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 p-6 sm:p-10 shadow-sm flex flex-col">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Status Balance</h2>
+            <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Current state distribution</p>
           </div>
           
-          <div className="flex-1 min-h-[350px] flex items-center justify-center relative">
+          <div className="flex-1 min-h-[250px] sm:min-h-[350px] flex items-center justify-center relative">
             {statusData.length === 0 ? (
                <EmptyState title="No status data" message="Current filter returned zero status records." />
             ) : (
@@ -301,13 +304,13 @@ export default function Analytics() {
         </div>
 
         {/* Category Breakdown (Bar Chart) */}
-        <div className="lg:col-span-3 bg-white rounded-[2.5rem] border border-slate-100 p-10 shadow-sm flex flex-col">
-          <div className="mb-10">
-            <h2 className="text-2xl font-black text-slate-800 tracking-tight">Domain Analysis</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Thematic record distribution</p>
+        <div className="lg:col-span-3 bg-white rounded-[2rem] sm:rounded-[2.5rem] border border-slate-100 p-6 sm:p-10 shadow-sm flex flex-col">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Domain Analysis</h2>
+            <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Thematic record distribution</p>
           </div>
           
-          <div className="flex-1 min-h-[400px]">
+          <div className="flex-1 min-h-[300px] sm:min-h-[400px]">
             {categoryData.length === 0 ? (
               <EmptyState title="No domains found" message="Add records with descriptive titles to see domain-based categorization." />
             ) : (
