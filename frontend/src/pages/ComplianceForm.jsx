@@ -121,14 +121,14 @@ export default function ComplianceForm() {
     <div className="page-shell max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <button onClick={() => navigate('/compliance')} className="p-3 bg-white border border-slate-200 rounded-2xl text-slate-500 hover:bg-slate-50 transition-all shadow-sm">
+        <button onClick={() => navigate('/compliance')} className="p-3 bg-white border border-slate-200 rounded-2xl text-[#1B4F8A] hover:bg-slate-50 transition-all shadow-sm">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         <div>
-          <h1 className="text-3xl font-black text-slate-800 tracking-tight">{isEdit ? 'Edit Record' : 'Create Record'}</h1>
-          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{isEdit ? 'Update existing documentation' : 'Add new compliance entry'}</p>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight">{isEdit ? 'Edit Record' : 'Create Record'}</h1>
+          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">{isEdit ? 'Update system documentation' : 'Initiate new entry'}</p>
         </div>
       </div>
 
@@ -228,7 +228,7 @@ export default function ComplianceForm() {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-            <button type="submit" className="btn-primary w-full sm:flex-1 py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-violet-100 hover:scale-[1.02] active:scale-95 transition-all" disabled={loading}>
+            <button type="submit" className="btn-primary w-full sm:flex-1 !py-5 shadow-lg shadow-[#1B4F8A]/10" disabled={loading}>
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
                   <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -244,7 +244,7 @@ export default function ComplianceForm() {
             <button
               type="button"
               onClick={() => navigate('/compliance')}
-              className="btn-secondary w-full sm:w-auto px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-50 transition-all"
+              className="btn-secondary w-full sm:w-auto px-10 !py-5"
               disabled={loading}
             >
               Cancel

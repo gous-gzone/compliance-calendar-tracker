@@ -7,8 +7,8 @@ import * as complianceService from '../services/complianceService'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import EmptyState from '../components/EmptyState'
 
-const STATUS_COLORS  = { COMPLIANT: '#10b981', NON_COMPLIANT: '#ef4444', PENDING: '#f59e0b', IN_PROGRESS: '#3b82f6' }
-const STATUS_LABELS   = { COMPLIANT: 'Compliant', NON_COMPLIANT: 'Non-Compliant', PENDING: 'Pending', IN_PROGRESS: 'In Progress' }
+const STATUS_COLORS  = { COMPLIANT: '#10b981', NON_COMPLIANT: '#ef4444', PENDING: '#f59e0b', IN_PROGRESS: '#1B4F8A' }
+const STATUS_LABELS   = { COMPLIANT: 'Compliant', NON_COMPLIANT: 'Non-Compliant', PENDING: 'Pending', IN_PROGRESS: 'Active' }
 
 const CATEGORY_COLORS = {
   Privacy: '#8b5cf6',
@@ -150,16 +150,16 @@ export default function Analytics() {
     <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
       
       {/* Header & Period Selector */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-slate-100 pb-10">
-        <div className="space-y-1">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-slate-200 pb-10">
+        <div className="space-y-2">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 bg-accent-purple/10 text-accent-purple rounded-full text-[9px] font-black uppercase tracking-widest">Intelligence Node</span>
+            <span className="px-3 py-1 bg-slate-100 text-[#1B4F8A] rounded-full text-[9px] font-black uppercase tracking-widest">Intelligence Node: Online</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Performance Hub</h1>
-          <p className="text-sm sm:text-base font-bold text-slate-400">Granular analysis of regulatory lifecycle and response metrics.</p>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">Performance Hub</h1>
+          <p className="text-sm sm:text-base font-semibold text-slate-500">Granular analysis of regulatory lifecycle and response metrics.</p>
         </div>
         
-        <div className="flex items-center gap-1 bg-slate-100 p-1.5 sm:p-2 rounded-2xl sm:rounded-3xl border border-slate-200 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
           {[
             { id: '7days', label: '7D' },
             { id: '30days', label: '30D' },
@@ -168,7 +168,7 @@ export default function Analytics() {
             <button 
               key={p.id}
               onClick={() => setPeriod(p.id)}
-              className={`px-6 sm:px-8 py-2.5 sm:py-3 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-xl sm:rounded-2xl transition-all whitespace-nowrap ${period === p.id ? 'bg-white text-primary-600 shadow-xl shadow-slate-200 scale-105' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`px-8 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${period === p.id ? 'bg-[#1B4F8A] text-white shadow-lg shadow-[#1B4F8A]/20' : 'text-slate-400 hover:text-slate-600'}`}
             >
               {p.label}
             </button>
@@ -185,10 +185,10 @@ export default function Analytics() {
       {/* Summary Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
         {[
-          { label: 'Total Audits',    value: summary.total,       color: 'text-primary-600', bg: 'bg-primary-50', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+          { label: 'Total Audits',    value: summary.total,       color: 'text-[#1B4F8A]', bg: 'bg-slate-50', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
           { label: 'Compliant',        value: summary.compliant,   color: 'text-emerald-600', bg: 'bg-emerald-50', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
           { label: 'Failing Items',    value: summary.nonCompliant, color: 'text-rose-600', bg: 'bg-rose-50', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
-          { label: 'Health Score',  value: `${summary.complianceRate}%`, color: 'text-accent-purple',  bg: 'bg-purple-50', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+          { label: 'Health Score',  value: `${summary.complianceRate}%`, color: 'text-slate-700',  bg: 'bg-slate-100', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
         ].map(({ label, value, color, bg, icon }) => (
           <div key={label} className="glass-card rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-10 group hover:-translate-y-2 transition-all duration-500 overflow-hidden relative">
             <div className={`absolute -top-10 -right-10 w-32 h-32 ${bg} opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform`} />
@@ -239,14 +239,14 @@ export default function Analytics() {
                   />
                   <Tooltip content={<CustomTooltip />} />
                   <Area 
-                    type="stepAfter" 
+                    type="monotone" 
                     dataKey="count" 
                     name="Audit Volume" 
-                    stroke="#6366f1" 
+                    stroke="#1B4F8A" 
                     strokeWidth={4} 
                     fillOpacity={1} 
                     fill="url(#colorCount)" 
-                    activeDot={{ r: 8, strokeWidth: 0, fill: '#6366f1' }} 
+                    activeDot={{ r: 8, strokeWidth: 0, fill: '#1B4F8A' }} 
                     animationDuration={2000}
                   />
                 </AreaChart>

@@ -177,14 +177,14 @@ export default function ComplianceList() {
     const active = sortBy === col
     return (
       <th onClick={() => handleSort(col)}
-        className="px-6 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer select-none hover:bg-slate-50 hover:text-primary-600 transition-all border-b border-slate-100 relative group">
-        <span className={`flex items-center gap-2 ${active ? 'text-primary-600' : ''}`}>
+        className="px-6 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer select-none hover:bg-slate-50 hover:text-[#1B4F8A] transition-all border-b border-slate-100 relative group">
+        <span className={`flex items-center gap-2 ${active ? 'text-[#1B4F8A]' : ''}`}>
           {label}
           <span className={`transition-transform duration-300 ${active ? 'scale-110' : 'opacity-20 group-hover:opacity-100'}`}>
             {active ? (sortDir === 'asc' ? '↑' : '↓') : <span className="text-[8px]">↕</span>}
           </span>
         </span>
-        {active && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-600 animate-in slide-in-from-left duration-300" />}
+        {active && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#1B4F8A] animate-in slide-in-from-left duration-300" />}
       </th>
     )
   }
@@ -213,13 +213,13 @@ export default function ComplianceList() {
     <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
       {/* ── Header ── */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-100">
-        <div className="space-y-1">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-200">
+        <div className="space-y-2">
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-[9px] font-black uppercase tracking-widest">Database Node 01</span>
+            <span className="px-3 py-1 bg-slate-100 text-[#1B4F8A] rounded-full text-[9px] font-black uppercase tracking-widest">Database Node 01</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Audit Ledger</h1>
-          <p className="text-sm sm:text-base font-bold text-slate-400">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">Audit Ledger</h1>
+          <p className="text-sm sm:text-base font-semibold text-slate-500">
             {totalElements} immutable records discovered in the system cluster.
           </p>
         </div>
@@ -227,19 +227,19 @@ export default function ComplianceList() {
           <button
             onClick={handleExport}
             disabled={exporting}
-            className="flex-1 sm:flex-none p-4 rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-primary-600 hover:border-primary-100 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+            className="btn-secondary gap-2"
           >
             {exporting ? (
-              <div className="w-4 h-4 animate-spin border-2 border-primary-600 border-t-transparent rounded-full" />
+              <div className="w-4 h-4 animate-spin border-2 border-[#1B4F8A] border-t-transparent rounded-full" />
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-[#1B4F8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
             )}
-            <span className="text-[10px] font-black uppercase tracking-widest">{exporting ? 'Exporting…' : 'Export CSV'}</span>
+            <span className="uppercase tracking-widest">{exporting ? 'Exporting…' : 'Export CSV'}</span>
           </button>
-          <button onClick={() => navigate('/compliance/new')} className="flex-1 sm:flex-none btn-vibrant whitespace-nowrap">
+          <button onClick={() => navigate('/compliance/new')} className="btn-primary whitespace-nowrap">
             + New Record
           </button>
         </div>
@@ -476,7 +476,7 @@ export default function ComplianceList() {
                   <button key={item} onClick={() => setPage(item)}
                     className={`w-9 h-9 text-xs font-bold rounded-xl border transition-all ${
                       page === item
-                        ? 'bg-primary-600 border-primary-600 text-white shadow-lg shadow-primary-100'
+                        ? 'bg-[#1B4F8A] border-[#1B4F8A] text-white shadow-lg shadow-[#1B4F8A]/10'
                         : 'border-slate-100 text-slate-500 hover:bg-slate-50'
                     }`}>
                     {item + 1}

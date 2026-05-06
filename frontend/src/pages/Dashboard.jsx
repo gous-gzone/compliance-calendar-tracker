@@ -49,7 +49,7 @@ const BAR_COLORS = {
   COMPLIANT:     '#10b981',
   NON_COMPLIANT: '#ef4444',
   PENDING:       '#f59e0b',
-  IN_PROGRESS:   '#3b82f6',
+  IN_PROGRESS:   '#1B4F8A',
 }
 
 export default function Dashboard() {
@@ -78,26 +78,26 @@ export default function Dashboard() {
     {
       label: 'Total Records',
       value: stats?.total,
-      color: 'bg-indigo-50 text-indigo-600',
-      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
+      color: 'bg-slate-50 text-[#1B4F8A]',
+      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
     },
     {
       label: 'Compliant',
       value: stats?.compliant,
       color: 'bg-emerald-50 text-emerald-600',
-      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
     },
     {
       label: 'Pending Tasks',
       value: stats?.pending,
       color: 'bg-amber-50 text-amber-600',
-      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
     },
     {
       label: 'Critical Overdue',
       value: stats?.overdue,
       color: 'bg-red-50 text-red-600',
-      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
+      icon: <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
     },
   ]
 
@@ -129,21 +129,21 @@ export default function Dashboard() {
     <div className="page-shell space-y-12 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-100">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-primary-500 animate-ping" />
-            <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">Real-time Node Active</span>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-200">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#1B4F8A] animate-pulse" />
+            <span className="text-[10px] font-black text-[#1B4F8A] uppercase tracking-widest">Node Active: Production</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tighter">Command Center</h1>
-          <p className="text-sm sm:text-base font-bold text-slate-400">Unified view of your regulatory performance and risk vectoring.</p>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">Command Center</h1>
+          <p className="text-sm sm:text-base font-semibold text-slate-500">Unified view of regulatory performance and corporate risk vectors.</p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-           <button onClick={() => navigate('/ai')} className="flex-1 sm:flex-none p-4 rounded-2xl bg-white border border-slate-100 text-primary-600 hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
-             <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-             <span className="text-xs font-black uppercase tracking-widest">AI Agent</span>
+           <button onClick={() => navigate('/ai')} className="btn-secondary flex-1 sm:flex-none gap-2 group">
+             <svg className="w-5 h-5 group-hover:rotate-12 transition-transform text-[#1B4F8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+             <span className="uppercase tracking-widest">AI Agent</span>
            </button>
-           <button onClick={() => navigate('/compliance/new')} className="flex-1 sm:flex-none btn-vibrant whitespace-nowrap">
+           <button onClick={() => navigate('/compliance/new')} className="btn-primary flex-1 sm:flex-none whitespace-nowrap">
              + New Document
            </button>
         </div>
@@ -242,7 +242,7 @@ export default function Dashboard() {
 
           <button
             onClick={() => navigate('/compliance')}
-            className="btn-vibrant w-full"
+            className="btn-primary w-full"
           >
             Review Audit Logs
           </button>

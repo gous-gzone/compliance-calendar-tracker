@@ -55,28 +55,26 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-800 to-primary-950 flex items-center justify-center p-6 animate-in fade-in duration-1000">
+    <div className="min-h-screen bg-[#F4F7FA] flex items-center justify-center p-8 animate-in fade-in duration-700">
       <div className="w-full max-w-xl">
-        <div className="glass-card-dark rounded-[4rem] p-12 sm:p-20 relative overflow-hidden group">
-          {/* Decorative Elements */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl group-hover:scale-110 transition-transform" />
+        <div className="bg-white rounded-3xl p-10 sm:p-16 border border-slate-200 shadow-xl shadow-slate-200/50">
           
           <div className="flex flex-col items-center text-center mb-12">
-            <div className="w-20 h-20 bg-gradient-to-br from-primary-400 to-accent-purple rounded-3xl flex items-center justify-center shadow-2xl shadow-primary-500/20 rotate-6 mb-8 group-hover:rotate-12 transition-transform duration-500">
-              <span className="text-4xl font-black text-white italic">R</span>
+            <div className="w-16 h-16 bg-[#1B4F8A] rounded-2xl flex items-center justify-center shadow-lg shadow-[#1B4F8A]/20 mb-6">
+              <span className="text-3xl font-black text-white italic">C</span>
             </div>
-            <h1 className="text-5xl font-black text-white tracking-tighter mb-2">Initialize</h1>
-            <p className="text-[10px] font-black text-primary-400 uppercase tracking-[0.4em]">Create System Identity</p>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Request Access</h1>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Initialize your enterprise identity</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8 relative z-10" noValidate>
-            <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-6" htmlFor="name">Full Identity Name</label>
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+            <div className="space-y-2">
+              <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest ml-1" htmlFor="name">Full Name</label>
               <input
                 id="name"
                 name="name"
                 type="text"
-                className="w-full px-8 py-5 rounded-4xl bg-white/5 border-2 border-white/10 text-white outline-none focus:border-primary-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-600"
+                className="form-input !py-4 !px-6 !rounded-2xl"
                 placeholder="Jane Doe"
                 value={form.name}
                 onChange={handleChange}
@@ -84,13 +82,13 @@ export default function Register() {
               />
             </div>
 
-            <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-6" htmlFor="email">Email Identifier</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest ml-1" htmlFor="email">Work Email</label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                className="w-full px-8 py-5 rounded-4xl bg-white/5 border-2 border-white/10 text-white outline-none focus:border-primary-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-600"
+                className="form-input !py-4 !px-6 !rounded-2xl"
                 placeholder="identity@organization.com"
                 value={form.email}
                 onChange={handleChange}
@@ -99,26 +97,26 @@ export default function Register() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-6" htmlFor="password">Passcode</label>
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest ml-1" htmlFor="password">Passcode</label>
                 <input
                   id="password"
                   name="password"
                   type="password"
-                  className="w-full px-8 py-5 rounded-4xl bg-white/5 border-2 border-white/10 text-white outline-none focus:border-primary-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-600"
+                  className="form-input !py-4 !px-6 !rounded-2xl"
                   placeholder="Min. 6"
                   value={form.password}
                   onChange={handleChange}
                   required
                 />
               </div>
-              <div className="space-y-4">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-6" htmlFor="confirmPassword">Verify</label>
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest ml-1" htmlFor="confirmPassword">Verify</label>
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
-                  className="w-full px-8 py-5 rounded-4xl bg-white/5 border-2 border-white/10 text-white outline-none focus:border-primary-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-600"
+                  className="form-input !py-4 !px-6 !rounded-2xl"
                   placeholder="••••"
                   value={form.confirmPassword}
                   onChange={handleChange}
@@ -127,20 +125,20 @@ export default function Register() {
               </div>
             </div>
 
-            <button type="submit" className="btn-vibrant w-full py-8 !text-sm shadow-2xl shadow-primary-900/40" disabled={loading}>
+            <button type="submit" className="btn-primary w-full !py-4 !rounded-2xl !text-sm uppercase tracking-widest mt-4" disabled={loading}>
               {loading ? (
                 <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Initializing...</span>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Processing...</span>
                 </div>
               ) : 'Execute Initialization'}
             </button>
           </form>
 
-          <div className="mt-12 text-center relative border-t border-white/5 pt-8">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+          <div className="mt-10 text-center border-t border-slate-100 pt-8">
+            <p className="text-xs font-bold text-slate-500">
               Existing Account?{' '}
-              <Link to="/login" className="text-primary-400 hover:text-primary-500 transition-colors">
+              <Link to="/login" className="text-[#1B4F8A] hover:underline transition-all">
                 Return to Authorization
               </Link>
             </p>

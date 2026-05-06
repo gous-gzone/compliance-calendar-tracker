@@ -1,1 +1,96 @@
-@import './styles/tailwind.css';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1B4F8A;
+  --color-primary-hover: #153e6d;
+  --color-primary-light: #e8eff6;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-400: #94a3b8;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  
+  --font-outfit: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F4F7FA] text-slate-900 font-outfit antialiased;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* 8px Spacing Containers */
+@utility page-shell {
+  @apply p-8 lg:p-12 space-y-8;
+}
+
+@utility section-panel {
+  @apply bg-white border border-slate-200 rounded-2xl p-8 shadow-sm;
+}
+
+/* Uniform Button System */
+@utility btn-base {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+@utility btn-primary {
+  @apply btn-base bg-primary text-white hover:bg-primary-hover shadow-lg shadow-primary/10 hover:shadow-primary/20;
+}
+
+@utility btn-secondary {
+  @apply btn-base bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300;
+}
+
+@utility btn-ghost {
+  @apply btn-base text-slate-500 hover:bg-slate-100 hover:text-slate-900;
+}
+
+@utility btn-danger {
+  @apply btn-base bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-100;
+}
+
+/* Standardized Form Inputs */
+@utility form-input {
+  @apply w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all placeholder:text-slate-400;
+}
+
+@utility form-select {
+  @apply form-input appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236B7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.75rem_center] bg-no-repeat pr-10;
+}
+
+/* Cards & Table Styling */
+@utility glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/60 shadow-sm rounded-3xl;
+}
+
+@utility table-card {
+  @apply bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm;
+}
+
+/* Custom Scrollbar for 8px Aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+}
+
+/* Animations */
+.animate-in {
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

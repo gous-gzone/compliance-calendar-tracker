@@ -7,7 +7,7 @@ import EmptyState from '../components/EmptyState'
 function Spinner({ size = 'md' }) {
   const s = size === 'sm' ? 'w-4 h-4' : 'w-6 h-6'
   return (
-    <svg className={`${s} animate-spin text-primary-600`} fill="none" viewBox="0 0 24 24">
+    <svg className={`${s} animate-spin text-[#1B4F8A]`} fill="none" viewBox="0 0 24 24">
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
     </svg>
@@ -38,7 +38,7 @@ function TypingText({ text, speed = 12, onComplete }) {
     <span className="whitespace-pre-wrap leading-relaxed">
       {displayed}
       {displayed.length < (text?.length || 0) && (
-        <span className="inline-block w-2 h-4 bg-violet-500 ml-1 animate-pulse align-middle rounded-sm" />
+        <span className="inline-block w-2 h-4 bg-[#1B4F8A] ml-1 animate-pulse align-middle rounded-sm" />
       )}
     </span>
   )
@@ -57,12 +57,12 @@ function AIResponseCard({ data, onRetry, loading }) {
   if (!data && !loading) return null
 
   return (
-    <div className="mt-12 glass-card rounded-5xl p-10 animate-in fade-in zoom-in duration-700 relative overflow-hidden group">
-      <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl group-hover:scale-110 transition-transform" />
+    <div className="mt-12 glass-card rounded-5xl p-10 animate-in fade-in zoom-in duration-700 relative overflow-hidden group border-slate-200">
+      <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#1B4F8A]/10 rounded-full blur-3xl group-hover:scale-110 transition-transform" />
       
       <div className="flex items-center justify-between mb-10 relative z-10">
         <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-600 to-accent-purple flex items-center justify-center text-white shadow-xl shadow-primary-200">
+          <div className="w-16 h-16 rounded-2xl bg-[#1B4F8A] flex items-center justify-center text-white shadow-xl shadow-[#1B4F8A]/20">
              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
           </div>
           <div>
@@ -72,7 +72,7 @@ function AIResponseCard({ data, onRetry, loading }) {
             )}
           </div>
         </div>
-        <button onClick={onRetry} className="btn-vibrant !py-3 !px-6 !text-[10px]">
+        <button onClick={onRetry} className="btn-secondary !py-2.5 !px-5 !text-[10px] uppercase tracking-widest">
           Refresh Node
         </button>
       </div>
@@ -196,7 +196,7 @@ function StreamingReport() {
             id="generate-report-btn"
             onClick={handleGenerate}
             disabled={!prompt.trim() || status === 'pending' || status === 'polling'}
-            className="flex-1 flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-5 rounded-[1.25rem] sm:rounded-[1.5rem] bg-violet-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-widest hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-violet-100 hover:scale-105 active:scale-95"
+            className="flex-1 btn-primary !py-5 gap-3"
           >
             {(status === 'pending' || status === 'polling') ? <Spinner size="sm" /> : (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -313,7 +313,7 @@ function CSVExportSection() {
         id="download-csv-btn"
         onClick={handleExport}
         disabled={exporting}
-        className="group flex items-center gap-4 px-10 py-5 rounded-2xl bg-indigo-600 text-white text-xs font-black uppercase tracking-widest hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-indigo-100 active:scale-95"
+        className="group btn-primary !py-5 gap-4"
       >
         {exporting ? <Spinner size="sm" /> : (
           <svg className="w-5 h-5 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,9 +342,9 @@ function TabBtn({ active, onClick, icon, label, id }) {
     <button
       id={id}
       onClick={onClick}
-      className={`flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest transition-all flex-shrink-0 ${
+      className={`flex items-center gap-3 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex-shrink-0 ${
         active
-          ? 'bg-slate-900 text-white shadow-2xl shadow-slate-300 scale-105'
+          ? 'bg-[#1B4F8A] text-white shadow-xl shadow-[#1B4F8A]/20 scale-105'
           : 'text-slate-400 hover:text-slate-800 hover:bg-white border border-transparent hover:border-slate-100'
       }`}
     >
@@ -405,8 +405,8 @@ export default function AIPanelPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-100 pb-10">
         <div>
-          <h1 className="text-4xl font-black text-slate-800 tracking-tighter flex items-center gap-4">
-            <span className="w-12 h-12 bg-violet-600 rounded-[1.25rem] flex items-center justify-center text-white shadow-xl shadow-violet-200">
+          <h1 className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-4">
+            <span className="w-12 h-12 bg-[#1B4F8A] rounded-2xl flex items-center justify-center text-white shadow-xl shadow-[#1B4F8A]/20">
                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </span>
             Cognitive Hub
@@ -478,7 +478,7 @@ export default function AIPanelPage() {
                 onChange={e => setPrompt(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={loading}
-                className="w-full px-6 sm:px-10 py-6 sm:py-8 text-sm sm:text-lg font-bold rounded-[2rem] sm:rounded-[2.5rem] border-2 border-slate-100 bg-slate-50 outline-none focus:border-violet-400 focus:ring-8 focus:ring-violet-50 focus:bg-white transition-all resize-none disabled:opacity-60 pr-4 sm:pr-24 placeholder:text-slate-300"
+                className="w-full px-8 py-8 text-lg font-bold rounded-[2.5rem] border-2 border-slate-100 bg-slate-50 outline-none focus:border-[#1B4F8A] focus:ring-8 focus:ring-slate-100 focus:bg-white transition-all resize-none disabled:opacity-60 pr-24 placeholder:text-slate-300"
               />
               <div className="hidden sm:block absolute bottom-6 right-8 px-4 py-2 bg-slate-200 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest select-none pointer-events-none group-focus-within:bg-violet-100 group-focus-within:text-violet-600 transition-colors">
                 Ctrl + Enter
@@ -490,7 +490,7 @@ export default function AIPanelPage() {
                 id="ask-ai-btn"
                 onClick={() => handleAskAI()}
                 disabled={!prompt.trim() || loading}
-                className="flex items-center gap-4 px-10 py-5 rounded-2xl bg-violet-600 text-white text-xs font-black uppercase tracking-widest hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-violet-100 hover:scale-105 active:scale-95"
+                className="btn-primary !py-5 gap-4"
               >
                 {loading ? <Spinner size="sm" /> : (
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

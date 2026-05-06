@@ -54,44 +54,43 @@ export default function Sidebar() {
   const navigate = useNavigate()
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 min-h-screen bg-slate-900 fixed top-0 left-0 z-40 p-6 shadow-2xl">
+    <aside className="hidden lg:flex flex-col w-72 min-h-screen bg-white fixed top-0 left-0 z-40 p-8 border-r border-slate-200">
       {/* Brand */}
-      <div className="flex items-center gap-4 mb-12 px-2">
-        <div className="w-12 h-12 bg-gradient-to-br from-primary-400 to-accent-purple rounded-2xl flex items-center justify-center shadow-xl shadow-primary-900/50 rotate-3">
-          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <div className="flex items-center gap-4 mb-10 px-2">
+        <div className="w-10 h-10 bg-[#1B4F8A] rounded-xl flex items-center justify-center shadow-lg shadow-[#1B4F8A]/20">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
         </div>
         <div>
-          <p className="text-xl font-black text-white tracking-tighter leading-none">Compliance</p>
-          <p className="text-[10px] font-black text-primary-400 uppercase tracking-widest mt-1">v4.2 Production</p>
+          <p className="text-lg font-extrabold text-[#1B4F8A] tracking-tight leading-none">Compliance</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">v4.2 Production</p>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-2 overflow-y-auto custom-scrollbar">
-        <p className="px-4 mb-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
-          Operational Core
+      <nav className="flex-1 space-y-1 overflow-y-auto custom-scrollbar">
+        <p className="px-4 mb-4 text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+          Core Systems
         </p>
         {NAV.map(({ to, label, icon }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center gap-4 px-6 py-4 rounded-2xl transition-all group relative overflow-hidden ${
+              `flex items-center gap-4 px-4 py-3 rounded-xl transition-all group relative ${
                 isActive
-                  ? 'bg-primary-600 text-white shadow-xl shadow-primary-900/40 scale-105'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                  ? 'bg-[#1B4F8A] text-white shadow-md shadow-[#1B4F8A]/10'
+                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
               }`
             }
           >
             {({ isActive }) => (
               <>
-                {isActive && <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent pointer-events-none" />}
-                <span className={`${isActive ? 'text-white' : 'text-slate-500 group-hover:text-primary-400'} transition-colors`}>
+                <span className={`${isActive ? 'text-white' : 'text-slate-400 group-hover:text-[#1B4F8A]'} transition-colors`}>
                   {icon}
                 </span>
-                <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`}>
+                <span className={`text-sm font-semibold ${isActive ? 'text-white' : 'text-slate-600 group-hover:text-slate-900'}`}>
                   {label}
                 </span>
               </>
@@ -101,34 +100,28 @@ export default function Sidebar() {
       </nav>
 
       {/* User Session */}
-      <div className="mt-auto pt-8">
-        <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 relative overflow-hidden group">
-           <div className="absolute top-0 right-0 p-2 opacity-5 scale-150">
-             <svg className="w-12 h-12 text-slate-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" /></svg>
-           </div>
-           
-           <div className="flex items-center gap-4 mb-4">
-             <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
-               <span className="text-sm font-black text-primary-600">
-                 {(user?.name || user?.email || 'U')[0].toUpperCase()}
-               </span>
-             </div>
-             <div className="flex-1 min-w-0">
-               <p className="text-xs font-black text-slate-800 tracking-tight truncate">{user?.name || 'Administrator'}</p>
-               <p className="text-[10px] font-bold text-slate-400 truncate mt-0.5">{user?.email}</p>
-             </div>
-           </div>
-           
-           <button
-             onClick={() => { logout(); navigate('/login') }}
-             className="w-full py-3 rounded-xl bg-white border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-600 hover:border-red-100 hover:bg-red-50 transition-all flex items-center justify-center gap-2"
-           >
-             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-             </svg>
-             Terminate Session
-           </button>
+      <div className="mt-auto pt-8 border-t border-slate-100">
+        <div className="flex items-center gap-3 mb-6 px-2">
+          <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
+            <span className="text-xs font-bold text-[#1B4F8A]">
+              {(user?.name || user?.email || 'U')[0].toUpperCase()}
+            </span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold text-slate-900 truncate">{user?.name || 'Administrator'}</p>
+            <p className="text-[10px] font-medium text-slate-500 truncate">{user?.email}</p>
+          </div>
         </div>
+        
+        <button
+          onClick={() => { logout(); navigate('/login') }}
+          className="w-full btn-secondary !py-2.5 !text-[10px] uppercase tracking-widest gap-2"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Logout
+        </button>
       </div>
     </aside>
   )

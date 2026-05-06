@@ -84,7 +84,7 @@ function AiStructuredOutput({ text }) {
             <ul className="space-y-1.5">
               {section.bullets.map((bullet, bi) => (
                 <li key={bi} className="flex items-start gap-2 text-sm text-slate-600">
-                  <span className="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0 mt-1.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1B4F8A] flex-shrink-0 mt-1.5" />
                   {bullet}
                 </li>
               ))}
@@ -95,7 +95,7 @@ function AiStructuredOutput({ text }) {
       {!done && (
         <div className="flex items-center gap-1.5 px-2 py-1">
           {[0, 1, 2].map(i => (
-            <span key={i} className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-bounce"
+            <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#1B4F8A] animate-bounce"
               style={{ animationDelay: `${i * 150}ms` }} />
           ))}
         </div>
@@ -238,17 +238,17 @@ export default function ComplianceDetail() {
       {/* ── Header ── */}
       <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between border-b border-slate-100 pb-8">
         <div className="flex items-start gap-4">
-          <button onClick={() => navigate('/compliance')} className="p-3 bg-white border border-slate-200 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all shadow-sm">
+          <button onClick={() => navigate('/compliance')} className="p-3 bg-white border border-slate-200 rounded-2xl text-[#1B4F8A] hover:bg-slate-50 transition-all shadow-sm">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h1 className="text-3xl font-black text-slate-800 tracking-tight truncate">{record.title}</h1>
+              <h1 className="text-3xl font-black text-slate-900 tracking-tight truncate">{record.title}</h1>
               <StatusBadge status={record.status} size="lg" />
             </div>
-            <div className="flex items-center gap-3 text-sm text-slate-400 font-bold uppercase tracking-widest">
+            <div className="flex items-center gap-3 text-[10px] text-slate-400 font-black uppercase tracking-widest">
               <span>Record ID: #{record.id}</span>
               <span className="w-1 h-1 rounded-full bg-slate-300" />
               <PriorityBadge priority={record.priority} />
@@ -257,13 +257,13 @@ export default function ComplianceDetail() {
         </div>
         
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate(`/compliance/${id}/edit`)} className="btn-secondary px-6 py-3 shadow-sm font-bold">
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button onClick={() => navigate(`/compliance/${id}/edit`)} className="btn-secondary px-6 !py-3 shadow-sm">
+            <svg className="w-4 h-4 mr-2 text-[#1B4F8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
             Edit Record
           </button>
-          <button onClick={handleDelete} disabled={deleting} className="btn-danger px-6 py-3 font-bold bg-red-600 hover:bg-red-700 shadow-lg shadow-red-100">
+          <button onClick={handleDelete} disabled={deleting} className="btn-danger px-6 !py-3 shadow-lg shadow-red-100">
             {deleting ? (
               <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -313,10 +313,10 @@ export default function ComplianceDetail() {
           </div>
 
           {/* AI Analysis Integration */}
-          <div ref={aiRef} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm border-l-4 border-l-violet-500">
+          <div ref={aiRef} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm border-l-4 border-l-[#1B4F8A]">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-100">
+                <div className="w-12 h-12 rounded-2xl bg-[#1B4F8A] flex items-center justify-center shadow-lg shadow-[#1B4F8A]/20">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -326,14 +326,14 @@ export default function ComplianceDetail() {
                     <h2 className="text-xl font-black text-slate-800 tracking-tight">Expert AI Analysis</h2>
                     <AiStatusBadge status={aiStatus} />
                   </div>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Groq Neural Engine · v3.1</p>
+                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Neural Analysis Engine</p>
                 </div>
               </div>
 
               {!aiLoading && (
                 <button
                   onClick={handleAskAi}
-                  className="btn-primary rounded-2xl px-6 py-3 font-bold shadow-lg shadow-violet-100 transition-all hover:scale-105 active:scale-95"
+                  className="btn-primary px-6 !py-3 shadow-lg shadow-[#1B4F8A]/10"
                 >
                   {aiAsked ? 'Regenerate' : 'Run Analysis'}
                 </button>
@@ -398,7 +398,7 @@ export default function ComplianceDetail() {
                 <div key={p} className={`p-4 rounded-2xl flex items-center justify-between border-2 transition-all ${record.priority === p ? 'bg-slate-800 border-slate-800 shadow-xl shadow-slate-200' : 'bg-white border-slate-50 opacity-40'}`}>
                   <span className={`text-xs font-black tracking-widest ${record.priority === p ? 'text-white' : 'text-slate-400'}`}>{p}</span>
                   {record.priority === p && (
-                    <div className="w-2 h-2 rounded-full bg-primary-400 shadow-lg shadow-primary-500" />
+                    <div className="w-2 h-2 rounded-full bg-[#1B4F8A] shadow-lg shadow-[#1B4F8A]/50" />
                   )}
                 </div>
               ))}
