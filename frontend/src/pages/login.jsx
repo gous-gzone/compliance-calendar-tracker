@@ -39,6 +39,7 @@ export default function Login() {
       setLoading(false)
     }
   }
+
   return (
     <div className="min-h-screen bg-[#F4F7FA] flex items-center justify-center p-8 animate-in fade-in duration-700">
       <div className="w-full max-w-lg">
@@ -110,5 +111,5 @@ export default function Login() {
       </div>
     </div>
   </div>
-)
+  )
 }

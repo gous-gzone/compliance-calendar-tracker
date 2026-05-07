@@ -57,7 +57,7 @@ function AIResponseCard({ data, onRetry, loading }) {
   if (!data && !loading) return null
 
   return (
-    <div className="mt-12 glass-card rounded-5xl p-10 animate-in fade-in zoom-in duration-700 relative overflow-hidden group border-slate-200">
+    <div className="mt-12 glass-card rounded-5xl p-10 animate-in fade-in zoom-in duration-700 relative overflow-hidden group border-slate-200 ai-pulse">
       <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#1B4F8A]/10 rounded-full blur-3xl group-hover:scale-110 transition-transform" />
       
       <div className="flex items-center justify-between mb-10 relative z-10">
@@ -179,7 +179,7 @@ function StreamingReport() {
   return (
     <div className="flex flex-col gap-8">
       <div className="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-sm relative overflow-hidden group">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50 rounded-bl-full opacity-50 -mr-10 -mt-10 transition-all group-hover:scale-110" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full opacity-50 -mr-10 -mt-10 transition-all group-hover:scale-110" />
         
         <label className="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Report Objectives</label>
         <textarea
@@ -189,7 +189,7 @@ function StreamingReport() {
           value={prompt}
           onChange={e => setPrompt(e.target.value)}
           disabled={status === 'pending' || status === 'polling'}
-          className="w-full px-5 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-bold rounded-[1.5rem] sm:rounded-[2rem] border-2 border-slate-100 bg-slate-50 outline-none focus:border-violet-400 focus:ring-8 focus:ring-violet-50 focus:bg-white transition-all resize-none disabled:opacity-60 mb-6 placeholder:text-slate-300"
+          className="w-full px-5 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-bold rounded-[1.5rem] sm:rounded-[2rem] border-2 border-slate-100 bg-slate-50 outline-none focus:border-[#1B4F8A] focus:ring-8 focus:ring-slate-100 focus:bg-white transition-all resize-none disabled:opacity-60 mb-6 placeholder:text-slate-300"
         />
         <div className="flex flex-col sm:flex-row gap-4">
           <button
@@ -215,7 +215,7 @@ function StreamingReport() {
 
       {/* Streaming Terminal UI */}
       {status !== 'idle' && (
-        <div className="rounded-[3rem] border-4 border-slate-900 bg-[#0c1220] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col animate-in slide-in-from-bottom-8 duration-700">
+        <div className="rounded-[3rem] border-4 border-slate-900 bg-[#0c1220] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col animate-in slide-in-from-bottom-8 duration-700 ai-pulse">
           {/* Header */}
           <div className="bg-[#1a2236] px-8 py-5 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-6">
@@ -461,7 +461,7 @@ export default function AIPanelPage() {
                 <button
                   key={ex}
                   onClick={() => { setPrompt(ex); setResponse(null); setError(null) }}
-                  className="px-5 py-3 rounded-2xl border-2 border-violet-50 text-[10px] font-black uppercase tracking-widest text-violet-600 bg-violet-50/50 hover:bg-violet-100 transition-all hover:scale-105"
+                  className="px-5 py-3 rounded-2xl border-2 border-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-500 bg-slate-50 hover:bg-slate-100 transition-all hover:scale-105"
                 >
                   {ex}
                 </button>
@@ -480,7 +480,7 @@ export default function AIPanelPage() {
                 disabled={loading}
                 className="w-full px-8 py-8 text-lg font-bold rounded-[2.5rem] border-2 border-slate-100 bg-slate-50 outline-none focus:border-[#1B4F8A] focus:ring-8 focus:ring-slate-100 focus:bg-white transition-all resize-none disabled:opacity-60 pr-24 placeholder:text-slate-300"
               />
-              <div className="hidden sm:block absolute bottom-6 right-8 px-4 py-2 bg-slate-200 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest select-none pointer-events-none group-focus-within:bg-violet-100 group-focus-within:text-violet-600 transition-colors">
+              <div className="hidden sm:block absolute bottom-6 right-8 px-4 py-2 bg-slate-200 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest select-none pointer-events-none group-focus-within:bg-[#1B4F8A]/10 group-focus-within:text-[#1B4F8A] transition-colors">
                 Ctrl + Enter
               </div>
             </div>
@@ -538,12 +538,12 @@ export default function AIPanelPage() {
       {/* Insights */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
         {[
-          { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Neural Latency', desc: 'Real-time processing via Groq optimized Llama models.', color: 'text-violet-600', bg: 'bg-violet-50' },
-          { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Data Extraction', desc: 'Auto-categorization of complex audit logs and title analysis.', color: 'text-indigo-600', bg: 'bg-indigo-50' },
-          { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', title: 'Secure Protocol', desc: 'Enterprise-grade encryption for all AI-assisted data streams.', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+          { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Neural Latency', desc: 'Real-time processing via high-performance Llama models.', color: 'text-[#1B4F8A]', bg: 'bg-slate-50' },
+          { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Data Extraction', desc: 'Auto-categorization of complex audit logs and title analysis.', color: 'text-[#1B4F8A]', bg: 'bg-slate-50' },
+          { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', title: 'Secure Protocol', desc: 'Enterprise-grade encryption for all AI-assisted data streams.', color: 'text-[#1B4F8A]', bg: 'bg-slate-50' },
         ].map(c => (
-          <div key={c.title} className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm group hover:shadow-xl transition-all">
-            <div className={`w-14 h-14 rounded-2xl ${c.bg} ${c.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+          <div key={c.title} className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm group hover-lift">
+            <div className={`w-14 h-14 rounded-2xl ${c.bg} ${c.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={c.icon} /></svg>
             </div>
             <p className="text-lg font-black text-slate-800 tracking-tight">{c.title}</p>

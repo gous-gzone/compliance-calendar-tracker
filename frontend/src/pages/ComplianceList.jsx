@@ -414,7 +414,7 @@ export default function ComplianceList() {
                   const overdue = isOverdue(rec.dueDate) && rec.status !== 'COMPLIANT'
                   return (
                     <tr key={rec.id} onClick={() => navigate(`/compliance/${rec.id}`)}
-                      className="hover:bg-slate-50 transition-colors cursor-pointer group">
+                      className="hover:bg-slate-50 transition-all cursor-pointer group hover-lift">
                       <td className="px-4 py-3.5 whitespace-nowrap">
                         <span className="text-xs font-mono text-slate-400 group-hover:text-slate-600 transition-colors">#{rec.id}</span>
                       </td>

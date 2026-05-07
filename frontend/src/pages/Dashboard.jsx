@@ -12,7 +12,7 @@ import EmptyState from '../components/EmptyState'
 // ── KPI Card ─────────────────────────────────────────────────────────────────
 function KpiCard({ label, value, icon, color, loading }) {
   return (
-    <div className="glass-card rounded-4xl p-8 group hover:-translate-y-2 transition-all duration-500 overflow-hidden relative animate-in fade-in zoom-in">
+    <div className="glass-card rounded-4xl p-8 group hover-lift overflow-hidden relative animate-in fade-in zoom-in">
       <div className={`absolute -top-10 -right-10 w-32 h-32 ${color.split(' ')[0]} opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform`} />
       <div className="flex items-center gap-6 relative z-10">
         <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${color} shadow-lg group-hover:scale-110 transition-transform`}>
@@ -34,11 +34,11 @@ function KpiCard({ label, value, icon, color, loading }) {
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl px-5 py-4 text-sm animate-in fade-in slide-in-from-top-2 duration-200">
-      <p className="font-black text-white uppercase tracking-widest text-[10px] mb-2">{label}</p>
+    <div className="bg-[#1B4F8A] border border-white/10 rounded-2xl shadow-2xl px-5 py-4 text-sm animate-in fade-in slide-in-from-top-2 duration-200">
+      <p className="font-black text-white/60 uppercase tracking-widest text-[10px] mb-2">{label}</p>
       <div className="flex items-center gap-2">
-        <div className="w-2 h-2 rounded-full bg-violet-400" />
-        <p className="text-violet-100 font-bold text-lg leading-none">{payload[0].value} <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest ml-1">Records</span></p>
+        <div className="w-2 h-2 rounded-full bg-white shadow-lg shadow-white/50" />
+        <p className="text-white font-black text-lg leading-none">{payload[0].value} <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest ml-1">Records</span></p>
       </div>
     </div>
   )
@@ -322,7 +322,7 @@ export default function Dashboard() {
                     <tr
                       key={rec.id}
                       onClick={() => navigate(`/compliance/${rec.id}`)}
-                      className="hover:bg-slate-50/80 cursor-pointer transition-all group animate-in fade-in slide-in-from-left duration-500"
+                      className="hover:bg-slate-50/80 cursor-pointer transition-all group animate-in fade-in slide-in-from-left duration-500 hover-lift"
                       style={{ animationDelay: `${idx * 100}ms` }}
                     >
                       <td className="px-10 py-7">

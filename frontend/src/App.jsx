@@ -6,7 +6,7 @@ import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 import ErrorBoundary from './components/ErrorBoundary'
 
-import Login from './pages/Login'
+import Login from './pages/login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import ComplianceList from './pages/ComplianceList'

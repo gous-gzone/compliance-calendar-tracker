@@ -64,11 +64,29 @@
 
 /* Cards & Table Styling */
 @utility glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/60 shadow-sm rounded-3xl;
+  @apply bg-white/90 backdrop-blur-xl border border-white shadow-sm rounded-3xl;
 }
 
 @utility table-card {
-  @apply bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm;
+  @apply bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300;
+}
+
+@utility hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1B4F8A]/5;
+}
+
+@utility ai-pulse {
+  @apply relative overflow-hidden;
+
+  &::after {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-[#1B4F8A]/5 to-transparent -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }
 
 /* Custom Scrollbar for 8px Aesthetics */

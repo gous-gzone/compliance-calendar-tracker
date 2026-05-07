@@ -313,7 +313,7 @@ export default function ComplianceDetail() {
           </div>
 
           {/* AI Analysis Integration */}
-          <div ref={aiRef} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm border-l-4 border-l-[#1B4F8A]">
+          <div ref={aiRef} className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm border-l-4 border-l-[#1B4F8A] ai-pulse">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#1B4F8A] flex items-center justify-center shadow-lg shadow-[#1B4F8A]/20">
