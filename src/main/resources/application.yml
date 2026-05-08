@@ -24,8 +24,20 @@ spring:
 server:
   port: 8080
 
+jwt:
+  secret: ${JWT_SECRET:default-secret-change-in-production-must-be-32-chars}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+notification:
+  email:
+    recipient: ${NOTIFICATION_EMAIL:admin@example.com}
+
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:uploads}
+
 logging:
   level:
     com.example.tool: INFO
     org.springframework.security: WARN
     org.flywaydb: INFO
+    org.springframework.cache: TRACE

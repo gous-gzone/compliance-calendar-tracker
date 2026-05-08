@@ -8,7 +8,6 @@ import com.example.tool.repository.UserRepository;
 import com.example.tool.config.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
+@Tag(name = "Authentication", description = "APIs for user registration and login")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -28,6 +28,14 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
+    @Operation(
+            summary = "Register a new user",
+            description = "Registers a new user with ROLE_VIEWER and returns a JWT token. Username must be unique.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User registered successfully, JWT token returned"),
+            @ApiResponse(responseCode = "400", description = "Username already exists or invalid input"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
         System.out.println("Registration request received for email: " + request.getEmail());
@@ -61,5 +69,17 @@ public class AuthController {
         System.out.println("Login successful for user: " + user.getEmail());
         return ResponseEntity.ok(new AuthResponse(token, userDto));
     }
-}
 
+    @Operation(
+            summary = "Login with existing credentials",
+            description = "Authenticates a user and returns a JWT token. Use as: Authorization: Bearer <token>")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Login successful, JWT token returned"),
+            @ApiResponse(responseCode = "400", description = "Invalid credentials or request body"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
+}

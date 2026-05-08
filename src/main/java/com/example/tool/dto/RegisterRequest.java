@@ -16,6 +16,8 @@ public class RegisterRequest {
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
+    @Schema(description = "Password (minimum 6 characters)", example = "secret123",
+            requiredMode = Schema.RequiredMode.REQUIRED)
     private String password;
 
     public String getName() { return name; }

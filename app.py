@@ -4,12 +4,14 @@ from routes.health_routes import health_bp
 from routes.describe_routes import describe_bp
 from routes.recommend_routes import recommend_bp
 from routes.report_routes import report_bp
+from routes.analyse_routes import analyse_bp
+
 
 
 app = Flask(__name__)
 CORS(app)
 
-
+app.register_blueprint(analyse_bp)
 app.register_blueprint(health_bp)
 app.register_blueprint(describe_bp)
 app.register_blueprint(recommend_bp)

@@ -2,11 +2,12 @@ package com.example.tool.service;
 
 import com.example.tool.dto.ComplianceRequest;
 import com.example.tool.entity.Compliance;
-import com.example.tool.exception.ComplianceNotFoundException;
+import com.example.tool.exception.InvalidDataException;
+import com.example.tool.exception.ResourceNotFoundException;
 import com.example.tool.repository.ComplianceRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 public class ComplianceService {
 
     private final ComplianceRepository complianceRepository;
+    private final EmailService emailService;
 
     public ComplianceService(ComplianceRepository complianceRepository) {
         this.complianceRepository = complianceRepository;
@@ -23,9 +25,12 @@ public class ComplianceService {
         return complianceRepository.findAll();
     }
 
-    public Compliance getById(Long id) {
-        return complianceRepository.findById(id)
-                .orElseThrow(() -> new ComplianceNotFoundException(id));
+    @Cacheable(value = "complianceRecords",
+            key = "#pageable.pageNumber + '-' + #pageable.pageSize + '-' + #pageable.sort",
+            unless = "#result == null")
+    public Page<Compliance> getAllRecords(Pageable pageable) {
+        log.info("Cache MISS - fetching complianceRecords from DB for page: {}", pageable.getPageNumber());
+        return complianceRepository.findByIsDeletedFalse(pageable);
     }
 
     public Compliance create(ComplianceRequest request) {
@@ -48,23 +53,37 @@ public class ComplianceService {
         return complianceRepository.save(existing);
     }
 
-    public void delete(Long id) {
-        if (!complianceRepository.existsById(id)) {
-            throw new ComplianceNotFoundException(id);
-        }
-        complianceRepository.deleteById(id);
+    @Caching(evict = {
+            @CacheEvict(value = "complianceRecords", allEntries = true),
+            @CacheEvict(value = "complianceById",    key = "#id")
+    })
+    public void deleteRecord(Long id) {
+        Compliance c = complianceRepository.findByIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Compliance record not found with id: " + id));
+        c.setDeleted(true);
+        complianceRepository.save(c);
+        log.info("Compliance record soft-deleted with id: {}", id);
     }
 
     public List<Compliance> search(String keyword) {
-        return complianceRepository.searchByTitle(keyword);
+        return complianceRepository.search(keyword);
     }
 
     public Map<String, Long> getStats() {
-        Map<String, Long> stats = new HashMap<>();
-        stats.put("total", complianceRepository.count());
-        stats.put("pending", (long) complianceRepository.findByStatus("PENDING").size());
-        stats.put("completed", (long) complianceRepository.findByStatus("COMPLETED").size());
-        stats.put("overdue", (long) complianceRepository.findByStatus("OVERDUE").size());
-        return stats;
+        return Map.of(
+                "total",     complianceRepository.countByIsDeletedFalse(),
+                "pending",   complianceRepository.countByStatusAndIsDeletedFalse("PENDING"),
+                "completed", complianceRepository.countByStatusAndIsDeletedFalse("COMPLETED"),
+                "overdue",   complianceRepository.countByStatusAndIsDeletedFalse("OVERDUE"),
+                "open",      complianceRepository.countByStatusAndIsDeletedFalse("OPEN"),
+                "closed",    complianceRepository.countByStatusAndIsDeletedFalse("CLOSED")
+        );
+    }
+
+    private void validate(ComplianceRequest r) {
+        if (r.getTitle() == null || r.getTitle().isBlank())
+            throw new InvalidDataException("Title must not be empty");
+        if (r.getDueDate() != null && r.getDueDate().isBefore(LocalDate.now()))
+            throw new InvalidDataException("Due date must not be in the past");
     }
 }

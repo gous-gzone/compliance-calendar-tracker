@@ -218,3 +218,24 @@ Logs store sensitive info → privacy violation
 - Identified issues are related to missing security headers
 - Application is secure for development stage
 - Security improvements can be added in future (headers, production config)
+
+## Security Improvements (Day 8)
+
+- Implemented Content Security Policy (CSP)
+- Added X-Content-Type-Options header
+- Added X-Frame-Options header
+- Enabled X-XSS-Protection
+- Reduced OWASP ZAP medium severity issues
+
+### Result
+- Improved protection against XSS and injection attacks
+- Enhanced application security posture
+- Ready for production-level improvements
+
+## AI Service Security
+
+- Input sanitization implemented
+- OWASP Top 10 risks considered
+- Rate limiting applied
+- Security headers added
+- OWASP ZAP scan performed

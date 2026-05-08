@@ -57,6 +57,16 @@ def rate_limit_exceeded(e):
         "error": "Too many requests",
         "message": "Rate limit exceeded. Try again later."
     }), 429
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
 
+    # 🔥 Fix server header properly
+    response.headers["Server"] = "SecureServer"
+
+    return response
 if __name__ == "__main__":
     app.run(port=5000)
